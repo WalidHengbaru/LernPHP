@@ -82,8 +82,8 @@ if (isset($_GET['delete']) && ctype_digit($_GET['delete'])) {
 }
 
 // Fetch admins and users
-$admins = $pdo->query("SELECT id, username, email, admin_level, created_at FROM users WHERE admin_level IN ('super_admin', 'regular_admin') ORDER BY id DESC")->fetchAll();
-$users = $pdo->query("SELECT id, username, email, admin_level, created_at FROM users WHERE admin_level = 'customer' ORDER BY id DESC")->fetchAll();
+$admins = $pdo->query("SELECT id, profile_image, username, email, admin_level, created_at FROM users WHERE admin_level IN ('super_admin', 'regular_admin') ORDER BY id DESC")->fetchAll();
+$users = $pdo->query("SELECT id, profile_image, username, email, admin_level, created_at FROM users WHERE admin_level = 'customer' ORDER BY id DESC")->fetchAll();
 ?>
 <!DOCTYPE html>
 <html lang="th">
@@ -168,6 +168,7 @@ $users = $pdo->query("SELECT id, username, email, admin_level, created_at FROM u
 <table border="1" cellpadding="6" cellspacing="0">
     <tr>
         <th>ลำดับ</th>
+        <th>รูปภาพ</th>
         <th>ชื่อผู้ใช้</th>
         <th>อีเมล</th>
         <th>ระดับ</th>
@@ -177,6 +178,13 @@ $users = $pdo->query("SELECT id, username, email, admin_level, created_at FROM u
     <?php foreach ($admins as $a): ?>
         <tr>
             <td><?php echo $a['id']; ?></td>
+            <td>
+                <?php if ($a['profile_image']): ?>
+                    <img src="uploads/<?php echo htmlspecialchars($a['profile_image']); ?>" alt="Profile Image" style="width: 50px; height: 50px; object-fit: cover;">
+                <?php else: ?>
+                    <span>ไม่มีรูป</span>
+                <?php endif; ?>
+            </td>
             <td><?php echo htmlspecialchars($a['username']); ?></td>
             <td><?php echo htmlspecialchars($a['email']); ?></td>
             <td><?php echo $a['admin_level'] === 'super_admin' ? 'แอดมินใหญ่' : 'แอดมินรอง'; ?></td>
@@ -198,6 +206,7 @@ $users = $pdo->query("SELECT id, username, email, admin_level, created_at FROM u
 <table border="1" cellpadding="6" cellspacing="0">
     <tr>
         <th>ลำดับ</th>
+        <th>รูปภาพ</th>
         <th>ชื่อผู้ใช้</th>
         <th>อีเมล</th>
         <th>ระดับ</th>
@@ -207,6 +216,13 @@ $users = $pdo->query("SELECT id, username, email, admin_level, created_at FROM u
     <?php foreach ($users as $u): ?>
         <tr>
             <td><?php echo $u['id']; ?></td>
+            <td>
+                <?php if ($u['profile_image']): ?>
+                    <img src="uploads/<?php echo htmlspecialchars($u['profile_image']); ?>" alt="Profile Image" style="width: 50px; height: 50px; object-fit: cover;">
+                <?php else: ?>
+                    <span>ไม่มีรูป</span>
+                <?php endif; ?>
+            </td>
             <td><?php echo htmlspecialchars($u['username']); ?></td>
             <td><?php echo htmlspecialchars($u['email']); ?></td>
             <td>ลูกค้า</td>

@@ -62,6 +62,7 @@ CREATE TABLE IF NOT EXISTS customers (
 $mysqli->query("
 CREATE TABLE IF NOT EXISTS products (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    product_image VARCHAR(255) DEFAULT NULL,
     name VARCHAR(100) NOT NULL,
     description TEXT,
     price DECIMAL(10,2) NOT NULL,

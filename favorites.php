@@ -78,6 +78,7 @@ $favorites = $stmt->fetchAll();
             <table>
                 <tr>
                     <th>ลำดับ</th>
+                    <th>รูปภาพ</th>
                     <th>ชื่อสินค้า</th>
                     <th>คำอธิบาย</th>
                     <th>ราคา</th>
@@ -86,6 +87,13 @@ $favorites = $stmt->fetchAll();
                 <?php foreach ($favorites as $f): ?>
                     <tr>
                         <td><?php echo $f['id']; ?></td>
+                        <td>
+                            <?php if ($f['product_image']): ?>
+                                <img src="uploads/<?php echo htmlspecialchars($f['product_image']); ?>" alt="Product Image" style="width: 50px; height: 50px; object-fit: cover;">
+                            <?php else: ?>
+                                <span>ไม่มีรูป</span>
+                            <?php endif; ?>
+                        </td>
                         <td><?php echo htmlspecialchars($f['name']); ?></td>
                         <td><?php echo htmlspecialchars($f['description'] ?? ''); ?></td>
                         <td><?php echo number_format($f['price'], 2); ?></td>
