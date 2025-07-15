@@ -168,6 +168,7 @@ $users = $pdo->query("SELECT id, username, email, admin_level, created_at FROM u
 <table border="1" cellpadding="6" cellspacing="0">
     <tr>
         <th>ลำดับ</th>
+        <th>รูปภาพ</th>
         <th>ชื่อผู้ใช้</th>
         <th>อีเมล</th>
         <th>ระดับ</th>
@@ -177,6 +178,13 @@ $users = $pdo->query("SELECT id, username, email, admin_level, created_at FROM u
     <?php foreach ($admins as $a): ?>
         <tr>
             <td><?php echo $a['id']; ?></td>
+            <td>
+                <?php if (!empty($a['profile_image'])): ?>
+                    <img src="<?php echo htmlspecialchars($a['profile_image']); ?>" alt="Profile Image" style="max-width: 50px; height: auto;">
+                <?php else: ?>
+                    <span>ไม่มีรูป</span>
+                <?php endif; ?>
+            </td>
             <td><?php echo htmlspecialchars($a['username']); ?></td>
             <td><?php echo htmlspecialchars($a['email']); ?></td>
             <td><?php echo $a['admin_level'] === 'super_admin' ? 'แอดมินใหญ่' : 'แอดมินรอง'; ?></td>
@@ -198,6 +206,7 @@ $users = $pdo->query("SELECT id, username, email, admin_level, created_at FROM u
 <table border="1" cellpadding="6" cellspacing="0">
     <tr>
         <th>ลำดับ</th>
+        <th>รูปภาพ</th>
         <th>ชื่อผู้ใช้</th>
         <th>อีเมล</th>
         <th>ระดับ</th>
@@ -207,6 +216,13 @@ $users = $pdo->query("SELECT id, username, email, admin_level, created_at FROM u
     <?php foreach ($users as $u): ?>
         <tr>
             <td><?php echo $u['id']; ?></td>
+            <td>
+                <?php if (!empty($u['profile_image'])): ?>
+                    <img src="<?php echo htmlspecialchars($u['profile_image']); ?>" alt="Profile Image" style="max-width: 50px; height: auto;">
+                <?php else: ?>
+                    <span>ไม่มีรูป</span>
+                <?php endif; ?>
+            </td>
             <td><?php echo htmlspecialchars($u['username']); ?></td>
             <td><?php echo htmlspecialchars($u['email']); ?></td>
             <td>ลูกค้า</td>

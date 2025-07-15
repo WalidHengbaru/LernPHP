@@ -26,7 +26,7 @@ $customer = [
     'company' => '', 'phone' => '', 'address' => '', 'state' => '',
     'city' => '', 'province' => '', 'zipcode' => '', 'telephone' => '',
     'fax' => '', 'mobile' => '', 'sex' => '', 'birth' => '',
-    'active' => 0, 'more_detail' => ''
+    'active' => 0, 'more_detail' => '', 'profile_image' => ''
 ];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -227,6 +227,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </td></tr>
                 <tr><td>Active</td><td><input type="checkbox" name="active" <?php echo $customer['active'] ? 'checked' : ''; ?>></td></tr>
                 <tr><td>รายละเอียดเพิ่มเติม</td><td><textarea name="more_detail"><?php echo htmlspecialchars($customer['more_detail']); ?></textarea></td></tr>
+                <tr>
+                    <td>รูปภาพโปรไฟล์</td>
+                    <td>
+                        <?php if (!empty($customer['profile_image'])): ?>
+                            <img src="<?php echo htmlspecialchars($customer['profile_image']); ?>" alt="Profile Image" style="max-width: 100px; height: auto;">
+                        <?php else: ?>
+                            <span>ไม่มีรูป</span>
+                        <?php endif; ?>
+                        <input type="file" name="profile_image" accept="image/jpeg,image/png,image/gif">
+                    </td>
+                </tr>
             </table>
         </fieldset>
 

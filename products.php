@@ -80,6 +80,7 @@ $products = $pdo->query("SELECT * FROM products ORDER BY id DESC")->fetchAll();
                     <table>
                         <tr>
                             <th>ลำดับ</th>
+                            <th>รูปภาพ</th>
                             <th>ชื่อสินค้า</th>
                             <th>คำอธิบาย</th>
                             <th>ราคา</th>
@@ -88,6 +89,13 @@ $products = $pdo->query("SELECT * FROM products ORDER BY id DESC")->fetchAll();
                         <?php foreach ($products as $p): ?>
                             <tr>
                                 <td><?php echo $p['id']; ?></td>
+                                <td>
+                                    <?php if (!empty($p['product_image'])): ?>
+                                        <img src="<?php echo htmlspecialchars($p['product_image']); ?>" alt="Product Image" style="max-width: 50px; height: auto;">
+                                    <?php else: ?>
+                                        <span>ไม่มีรูป</span>
+                                    <?php endif; ?>
+                                </td>
                                 <td><?php echo htmlspecialchars($p['name']); ?></td>
                                 <td><?php echo htmlspecialchars($p['description'] ?? ''); ?></td>
                                 <td><?php echo number_format($p['price'], 2); ?></td>

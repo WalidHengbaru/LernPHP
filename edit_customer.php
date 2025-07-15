@@ -188,7 +188,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$is_admin) {
         <?php else: ?>
             <form method="POST" enctype="multipart/form-data" class="form-container" onsubmit="return validateForm()">
                 <?php if ($customer['profile_image']): ?>
-                    <img src="<?php echo htmlspecialchars($customer['profile_image']); ?>" alt="Profile Image" class="profile-image">
+                    <img src="<?php echo htmlspecialchars($customer['profile_image']); ?>" alt="Profile Image" class="profile-image" style="max-width: 100px; height: auto;">
+                <?php else: ?>
+                    <span>ไม่มีรูป</span>
                 <?php endif; ?>
                 <div class="form-group">
                     <label>รูปโปรไฟล์</label>

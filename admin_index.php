@@ -32,7 +32,7 @@ $admins = [];
 
 try {
     if ($_SESSION['admin_level'] === 'super_admin') {
-        $customers = $pdo->query("SELECT id, name, surname, email, telephone, address, created_at FROM customers ORDER BY id DESC")->fetchAll();
+        $customers = $pdo->query("SELECT id, name, surname, email, telephone, address, created_at, profile_image FROM customers ORDER BY id DESC")->fetchAll();
         $product_search = trim($_GET['product_search'] ?? '');
         if ($product_search !== '') {
             $stmt = $pdo->prepare("SELECT id, name, description, price, created_at FROM products WHERE name = :name ORDER BY id DESC");
@@ -43,7 +43,7 @@ try {
         }
         $admins = $pdo->query("SELECT id, username, email, admin_level, created_at FROM users WHERE admin_level IN ('super_admin', 'regular_admin') ORDER BY id DESC")->fetchAll();
     } else {
-        $customers = $pdo->query("SELECT id, name, surname, email, telephone, address, created_at FROM customers ORDER BY id DESC")->fetchAll();
+        $customers = $pdo->query("SELECT id, name, surname, email, telephone, address, created_at, profile_image FROM customers ORDER BY id DESC")->fetchAll();
         if ($product_search !== '') {
             $stmt = $pdo->prepare("SELECT id, name, description, price, created_at FROM products WHERE name = :name ORDER BY id DESC");
             $stmt->execute([':name' => $product_search]);
@@ -191,6 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'])) {
                         <table>
                             <tr>
                                 <th>ลำดับ</th>
+                                <th>รูปภาพ</th>
                                 <th>ชื่อ</th>
                                 <th>นามสกุล</th>
                                 <th>อีเมล</th>
@@ -202,6 +203,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'])) {
                             <?php foreach ($customers as $c): ?>
                                 <tr>
                                     <td><?php echo $c['id']; ?></td>
+                                    <td>
+                                        <?php if (!empty($c['profile_image'])): ?>
+                                            <img src="<?php echo htmlspecialchars($c['profile_image']); ?>" alt="Profile Image" style="max-width: 50px; height: auto;">
+                                        <?php else: ?>
+                                            <span>ไม่มีรูป</span>
+                                        <?php endif; ?>
+                                    </td>
                                     <td><?php echo htmlspecialchars($c['name']); ?></td>
                                     <td><?php echo htmlspecialchars($c['surname']); ?></td>
                                     <td><?php echo htmlspecialchars($c['email']); ?></td>
@@ -225,6 +233,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'])) {
                         <table>
                             <tr>
                                 <th>ลำดับ</th>
+                                <th>รูปภาพ</th>
                                 <th>ชื่อสินค้า</th>
                                 <th>คำอธิบาย</th>
                                 <th>ราคา</th>
@@ -233,6 +242,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'])) {
                             <?php foreach ($products as $p): ?>
                                 <tr>
                                     <td><?php echo $p['id']; ?></td>
+                                    <td>
+                                        <?php if (!empty($p['profile_image'])): ?>
+                                            <img src="<?php echo htmlspecialchars($p['profile_image']); ?>" alt="Product Image" style="max-width: 50px; height: auto;">
+                                        <?php else: ?>
+                                            <span>ไม่มีรูป</span>
+                                        <?php endif; ?>
+                                    </td>
                                     <td><?php echo htmlspecialchars($p['name']); ?></td>
                                     <td><?php echo htmlspecialchars($p['description'] ?? ''); ?></td>
                                     <td><?php echo number_format($p['price'], 2); ?></td>
@@ -318,6 +334,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'])) {
                         <table>
                             <tr>
                                 <th>ลำดับ</th>
+                                <th>รูปภาพ</th>
                                 <th>ชื่อ</th>
                                 <th>นามสกุล</th>
                                 <th>อีเมล</th>
@@ -329,6 +346,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'])) {
                             <?php foreach ($customers as $c): ?>
                                 <tr>
                                     <td><?php echo $c['id']; ?></td>
+                                    <td>
+                                        <?php if (!empty($c['profile_image'])): ?>
+                                            <img src="<?php echo htmlspecialchars($c['profile_image']); ?>" alt="Profile Image" style="max-width: 50px; height: auto;">
+                                        <?php else: ?>
+                                            <span>ไม่มีรูป</span>
+                                        <?php endif; ?>
+                                    </td>
                                     <td><?php echo htmlspecialchars($c['name']); ?></td>
                                     <td><?php echo htmlspecialchars($c['surname']); ?></td>
                                     <td><?php echo htmlspecialchars($c['email']); ?></td>
@@ -352,6 +376,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'])) {
                         <table>
                             <tr>
                                 <th>ลำดับ</th>
+                                <th>รูปภาพ</th>
                                 <th>ชื่อสินค้า</th>
                                 <th>คำอธิบาย</th>
                                 <th>ราคา</th>
@@ -360,6 +385,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'])) {
                             <?php foreach ($products as $p): ?>
                                 <tr>
                                     <td><?php echo $p['id']; ?></td>
+                                    <td>
+                                        <?php if (!empty($p['profile_image'])): ?>
+                                            <img src="<?php echo htmlspecialchars($p['profile_image']); ?>" alt="Product Image" style="max-width: 50px; height: auto;">
+                                        <?php else: ?>
+                                            <span>ไม่มีรูป</span>
+                                        <?php endif; ?>
+                                    </td>
                                     <td><?php echo htmlspecialchars($p['name']); ?></td>
                                     <td><?php echo htmlspecialchars($p['description'] ?? ''); ?></td>
                                     <td><?php echo number_format($p['price'], 2); ?></td>
