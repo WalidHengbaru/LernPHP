@@ -65,6 +65,7 @@ CREATE TABLE IF NOT EXISTS products (
     name VARCHAR(100) NOT NULL,
     description TEXT,
     price DECIMAL(10,2) NOT NULL,
+    product_image VARCHAR(255) DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci
 ") or exit($mysqli->error);
@@ -81,7 +82,13 @@ CREATE TABLE IF NOT EXISTS favorites (
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci
 ") or exit($mysqli->error);
 
-/* 8) Insert a default super admin user if not exists */
+/* 8) Add product_image column to existing products table if it doesn't exist */
+$result = $mysqli->query("SHOW COLUMNS FROM products LIKE 'product_image'");
+if ($result->num_rows == 0) {
+    $mysqli->query("ALTER TABLE products ADD COLUMN product_image VARCHAR(255) DEFAULT NULL AFTER price") or exit($mysqli->error);
+}
+
+/* 9) Insert a default super admin user if not exists */
 $default_username = 'admin';
 $default_email = 'admin@example.com';
 $default_password = password_hash('admin123', PASSWORD_DEFAULT);
@@ -92,7 +99,7 @@ if ($result->num_rows == 0) {
     VALUES ('$default_username', '$default_email', '$default_password', 'super_admin', NOW())
     ") or exit($mysqli->error);
 
-    /* 9) Insert a default customer record for super admin */
+    /* 10) Insert a default customer record for super admin */
     $admin_user_id = $mysqli->query("SELECT id FROM users WHERE username = '$default_username'")->fetch_assoc()['id'];
     $mysqli->query("
     INSERT INTO customers (user_id, name, surname, email, created_at)
