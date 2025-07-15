@@ -246,6 +246,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'])) {
                                 <th>คำอธิบาย</th>
                                 <th>ราคา</th>
                                 <th>สร้างเมื่อ</th>
+                                <th>รูปภาพ</th>
                             </tr>
                             <?php foreach ($products as $p): ?>
                                 <tr>
@@ -254,6 +255,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'])) {
                                     <td><?php echo htmlspecialchars($p['description'] ?? ''); ?></td>
                                     <td><?php echo number_format($p['price'], 2); ?></td>
                                     <td><?php echo $p['created_at']; ?></td>
+                                    <td>
+                                        <?php if (!empty($p['image'])): ?>
+                                            <img src="<?php echo htmlspecialchars($p['image']); ?>" alt="รูปภาพสินค้า" style="max-width: 80px; height: auto;">
+                                        <?php else: ?>
+                                            <span>ไม่มีรูปภาพ</span>
+                                        <?php endif; ?>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         </table>

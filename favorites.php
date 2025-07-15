@@ -81,6 +81,7 @@ $favorites = $stmt->fetchAll();
                     <th>ชื่อสินค้า</th>
                     <th>คำอธิบาย</th>
                     <th>ราคา</th>
+                    <th>รูปภาพ</th>
                     <th>ลบ</th>
                 </tr>
                 <?php foreach ($favorites as $f): ?>
@@ -89,6 +90,13 @@ $favorites = $stmt->fetchAll();
                         <td><?php echo htmlspecialchars($f['name']); ?></td>
                         <td><?php echo htmlspecialchars($f['description'] ?? ''); ?></td>
                         <td><?php echo number_format($f['price'], 2); ?></td>
+                        <td>
+                            <?php if (!empty($f['image'])): ?>
+                                <img src="<?php echo htmlspecialchars($f['image']); ?>" alt="รูปภาพสินค้า" style="max-width: 80px; height: auto;">
+                            <?php else: ?>
+                                <span>ไม่มีรูปภาพ</span>
+                            <?php endif; ?>
+                        </td>
                         <td>
                             <a href="favorites.php?action=remove&product_id=<?php echo $f['id']; ?>" class="button button-danger">🗑️ ลบ</a>
                         </td>

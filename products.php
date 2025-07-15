@@ -83,6 +83,7 @@ $products = $pdo->query("SELECT * FROM products ORDER BY id DESC")->fetchAll();
                             <th>ชื่อสินค้า</th>
                             <th>คำอธิบาย</th>
                             <th>ราคา</th>
+                            <th>รูปภาพ</th>
                             <th>เพิ่มในรายการโปรด</th>
                         </tr>
                         <?php foreach ($products as $p): ?>
@@ -91,6 +92,13 @@ $products = $pdo->query("SELECT * FROM products ORDER BY id DESC")->fetchAll();
                                 <td><?php echo htmlspecialchars($p['name']); ?></td>
                                 <td><?php echo htmlspecialchars($p['description'] ?? ''); ?></td>
                                 <td><?php echo number_format($p['price'], 2); ?></td>
+                                <td>
+                                    <?php if (!empty($p['image'])): ?>
+                                        <img src="<?php echo htmlspecialchars($p['image']); ?>" alt="รูปภาพสินค้า" style="max-width: 80px; height: auto;">
+                                    <?php else: ?>
+                                        <span>ไม่มีรูปภาพ</span>
+                                    <?php endif; ?>
+                                </td>
                                 <td>
                                     <a href="favorites.php?action=add&product_id=<?php echo $p['id']; ?>" class="button button-primary">❤️ เพิ่ม</a>
                                 </td>

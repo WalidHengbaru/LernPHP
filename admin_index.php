@@ -198,6 +198,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'])) {
                                 <th>ที่อยู่</th>
                                 <th>สร้างเมื่อ</th>
                                 <th>แก้ไข</th>
+                                <th>รูปภาพ</th>
                             </tr>
                             <?php foreach ($customers as $c): ?>
                                 <tr>
@@ -210,6 +211,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'])) {
                                     <td><?php echo $c['created_at']; ?></td>
                                     <td>
                                         <a href="edit_customer.php?id=<?php echo $c['id']; ?>" class="button button-primary">✏️ แก้ไข</a>
+                                    </td>
+                                    <td>
+                                        <?php if (!empty($c['image'])): ?>
+                                            <img src="<?php echo htmlspecialchars($c['image']); ?>" alt="รูปภาพลูกค้า" style="max-width: 80px; height: auto;">
+                                        <?php else: ?>
+                                            <span>ไม่มีรูปภาพ</span>
+                                        <?php endif; ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -229,6 +237,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'])) {
                                 <th>คำอธิบาย</th>
                                 <th>ราคา</th>
                                 <th>สร้างเมื่อ</th>
+                                <th>รูปภาพ</th>
                             </tr>
                             <?php foreach ($products as $p): ?>
                                 <tr>
@@ -237,6 +246,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'])) {
                                     <td><?php echo htmlspecialchars($p['description'] ?? ''); ?></td>
                                     <td><?php echo number_format($p['price'], 2); ?></td>
                                     <td><?php echo $p['created_at']; ?></td>
+                                    <td>
+                                        <?php if (!empty($p['image'])): ?>
+                                            <img src="<?php echo htmlspecialchars($p['image']); ?>" alt="รูปภาพสินค้า" style="max-width: 80px; height: auto;">
+                                        <?php else: ?>
+                                            <span>ไม่มีรูปภาพ</span>
+                                        <?php endif; ?>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         </table>
@@ -325,6 +341,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'])) {
                                 <th>ที่อยู่</th>
                                 <th>สร้างเมื่อ</th>
                                 <th>แก้ไข</th>
+                                <th>รูปภาพ</th>
                             </tr>
                             <?php foreach ($customers as $c): ?>
                                 <tr>
@@ -337,6 +354,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'])) {
                                     <td><?php echo $c['created_at']; ?></td>
                                     <td>
                                         <a href="edit_customer.php?id=<?php echo $c['id']; ?>" class="button button-primary">✏️ แก้ไข</a>
+                                    </td>
+                                    <td>
+                                        <?php if (!empty($c['image'])): ?>
+                                            <img src="<?php echo htmlspecialchars($c['image']); ?>" alt="รูปภาพลูกค้า" style="max-width: 80px; height: auto;">
+                                        <?php else: ?>
+                                            <span>ไม่มีรูปภาพ</span>
+                                        <?php endif; ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
