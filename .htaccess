@@ -1,0 +1,14 @@
+# ป้องกันการเข้าถึงไฟล์ในโฟลเดอร์ includes
+RewriteRule ^includes/.*$ - [F]
+
+# ป้องกันการเข้าถึงไฟล์ .php ในโฟลเดอร์ assets
+RewriteRule ^assets/.*\.php$ - [F]
+
+# ป้องกันการเข้าถึงไฟล์ .htaccess
+<Files .htaccess>
+    Order allow,deny
+    Deny from all
+</Files>
+
+# อนุญาตการเข้าถึงโฟลเดอร์ admin และ customer
+RewriteRule ^(admin|customer)/.*\.php$ - [L]
